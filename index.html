@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aditi Gupta's portfolio showcasing web development and design projects.">
+  <meta name="keywords" content="Aditi Gupta, web developer, web designer, portfolio, React, Node.js">
+  <meta name="author" content="Aditi Gupta">
+  <title>Aditi Gupta - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      color: #A2AF9B;
+      background-color: #E8E6D9;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    body.dark-theme {
+      background-color: #0F1C2E;
+      color: #CFFFE2;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(15, 130, 140, 0.3), rgba(0, 64, 48, 0.3)),
+        url('https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?_gl=1*73l9b9*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTA0NjQkajU5JGwwJGgw');
+      background-size: cover;
+      background-attachment: fixed;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.dark-theme .hero {
+      background: linear-gradient(135deg, rgba(162, 213, 198, 0.3), rgba(15, 28, 46, 0.3)),
+  url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: 20;
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      white-space: nowrap;
+    }
+
+    .hero .typed-text {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #CFFFE2;
+    }
+
+    .home {
+      background: rgba(15, 130, 140, 0.2);
+      backdrop-filter: blur(12px);
+      color: white;
+      padding: 2rem;
+      width: 280px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+      z-index: 101;
+      transition: width 0.3s ease;
+    }
+
+    body.dark-theme .home {
+      background: rgba(162, 213, 198, 0.2);
+    }
+
+    .home.collapsed {
+      width: 60px;
+      padding: 1rem;
+    }
+
+    .home.collapsed .profile-pic,
+    .home.collapsed h3,
+    .home.collapsed p,
+    .home.collapsed .social-links {
+    visibility: hidden
+    }
+
+    .home .hamburger {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 102;
+    }
+
+    .home.collapsed .hamburger {
+      left: 0.5rem;
+    }
+
+    .home .theme-toggle {
+      position: absolute;
+      top: 4rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .home.collapsed .theme-toggle {
+      right: 0.5rem;
+    }
+
+    .home .theme-toggle:hover {
+      transform: rotate(180deg);
+    }
+
+    .home .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .home h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .home p {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .home .nav-links {
+      list-style: none;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .home .nav-links li {
+      margin: 0.5rem 0;
+    }
+
+    .home .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .home .nav-links a:hover {
+      color: #CFFFE2;
+    }
+
+    .home.collapsed .nav-links a {
+      position: relative;
+    }
+
+    .home.collapsed .nav-links a::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 50px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .home.collapsed .nav-links a:hover::after {
+      display: block;
+    }
+
+    .home .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .home .social-links a {
+      color: white;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .home .social-links a:hover {
+      color: #CFFFE2;
+    }
+
+    .content-wrapper {
+      margin-left: 270px;
+      padding: 2rem;
+      transition: margin-left 0.3s ease;
+    }
+
+    .content-wrapper.collapsed {
+      margin-left: 80px;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    #about {
+  background: linear-gradient(135deg, rgba(220, 207, 192, 0.1), rgba(250, 249, 238, 0.1)),
+  url('https://images.pexels.com/photos/1036642/pexels-photo-1036642.jpeg?_gl=1*ng63hs*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTE3ODMkajM2JGwwJGgw');
+  background-size: cover;
+  background-position: center;
+    }
+
+    body.dark-theme #about {
+  background: linear-gradient(135deg, rgba(162, 213, 198, 0.2), rgba(162, 213, 198, 0.2)),
+  url('https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg?_gl=1*1kb7v2u*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTA2MjckajU2JGwwJGgw');
+  background-size: cover;
+  background-position: center;
+  /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+  z-index: 20;
+    }
+
+    #skills {
+  background: linear-gradient(135deg, rgba(220, 207, 192, 0.1), rgba(250, 249, 238, 0.1)),
+  url('https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?_gl=1*zoan7o*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTE2NzEkajQ5JGwwJGgw');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: 20;
+  border-radius: 12px;
+    }
+
+    body.dark-theme #skills {
+  background: linear-gradient(135deg, rgba(162, 213, 198, 0.2), rgba(162, 213, 198, 0.2)),
+  url('https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?_gl=1*sv5qb5*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTEwNzMkajU3JGwwJGgw');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: 20;
+  border-radius: 12px;
+
+    }
+
+    #projects {
+      background: linear-gradient(135deg, rgba(220, 207, 192, 0.1), rgba(250, 249, 238, 0.1)),
+                  url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-radius: 12px;
+  z-index: 20;
+    }
+
+    body.dark-theme #projects {
+      background: linear-gradient(135deg, rgba(162, 213, 198, 0.2), rgba(162, 213, 198, 0.2)),
+  url('https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?_gl=1*tko5qx*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTExMzQkajU2JGwwJGgw');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  border-radius: 12px;
+  z-index: 20;
+    }
+
+    #contact {
+      background: linear-gradient(135deg, rgba(220, 207, 192, 0.1), rgba(250, 249, 238, 0.1)),
+                  url('https://images.pexels.com/photos/1181354/pexels-photo-1181354.jpeg?_gl=1*1blwmkq*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTIwOTAkajQ4JGwwJGgw');
+                  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat
+    background-attachment: fixed;
+  z-index: 20;
+    }
+
+    body.dark-theme #contact {
+      background: linear-gradient(135deg, rgba(162, 213, 198, 0.2), rgba(162, 213, 198, 0.2)),
+                  url('https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?_gl=1*j4x9zg*_ga*NTU2NjE4NTM5LjE3NTM2OTA0NjQ.*_ga_8JE65Q40S6*czE3NTM2OTA0NjMkbzEkZzEkdDE3NTM2OTEyMTckajQ1JGwwJGgw');
+                  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat
+    background-attachment: fixed;
+  z-index: 20;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      color: #A2AF9B;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark-theme h2 {
+      color: #CFFFE2;
+    }
+
+    .about, .contact {
+      background: rgba(220, 207, 192, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.dark-theme .about,
+    body.dark-theme .contact {
+      background: rgba(162, 213, 198, 0.2);
+      border: 1px solid rgba(207, 255, 226, 0.3);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill {
+      background: rgba(220, 207, 192, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 12px;
+    }
+
+    body.dark-theme .skill {
+      background: rgba(162, 213, 198, 0.2);
+      border: 1px solid rgba(207, 255, 226, 0.3);
+    }
+
+    .skill:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .projects-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      padding: 1rem;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .projects-row::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .projects-row::-webkit-scrollbar-track {
+      background: rgba(220, 207, 192, 0.1);
+    }
+
+    body.dark-theme .projects-row::-webkit-scrollbar-track {
+      background: rgba(162, 213, 198, 0.1);
+    }
+
+    .projects-row::-webkit-scrollbar-thumb {
+      background: #A2AF9B;
+      border-radius: 4px;
+    }
+
+    body.dark-theme .projects-row::-webkit-scrollbar-thumb {
+      background: #CFFFE2;
+    }
+
+    .project {
+      background: rgba(220, 207, 192, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 300px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    body.dark-theme .project {
+      background: rgba(162, 213, 198, 0.2);
+      border: 1px solid rgba(207, 255, 226, 0.3);
+    }
+
+    .project img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      transition: opacity 0.3s;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .project:hover img {
+      opacity: 0.9;
+    }
+
+    .project a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #A2AF9B;
+      color: #FAF9EE;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    body.dark-theme .project a {
+      background: #CFFFE2;
+      color: #0F1C2E;
+    }
+
+    .project a:hover {
+      background: #8A9A85;
+      transform: scale(1.05);
+    }
+
+    body.dark-theme .project a:hover {
+      background: #B0E6C9;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact input, .contact textarea {
+      padding: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: rgba(250, 249, 238, 0.1);
+      backdrop-filter: blur(12px);
+      color: #A2AF9B;
+      transition: border-color 0.3s;
+    }
+
+    body.dark-theme .contact input,
+    body.dark-theme .contact textarea {
+      background: rgba(162, 213, 198, 0.2);
+      border: 1px solid rgba(207, 255, 226, 0.3);
+      color: #CFFFE2;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      border-color: #8A9A85;
+      outline: none;
+    }
+
+    body.dark-theme .contact input:focus,
+    body.dark-theme .contact textarea:focus {
+      border-color: #B0E6C9;
+    }
+
+    .contact button {
+      background: linear-gradient(135deg, #A2AF9B, #8A9A85);
+      color: #FAF9EE;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    body.dark-theme .contact button {
+      background: linear-gradient(135deg, #CFFFE2, #B0E6C9);
+      color: #0F1C2E;
+    }
+
+    .contact button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #8A9A85, #A2AF9B);
+    }
+
+    body.dark-theme .contact button:hover {
+      background: linear-gradient(135deg, #B0E6C9, #CFFFE2);
+    }
+
+    .chat-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(162, 175, 155, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #FAF9EE;
+      animation: pulse 2s infinite;
+    }
+
+    body.dark-theme .chat-bubble {
+      background: rgba(162, 213, 198, 0.2);
+      color: #FFFFFF;
+    }
+
+    .chat-bubble:hover {
+      background: rgba(138, 154, 133, 0.2);
+      animation: none;
+    }
+
+    body.dark-theme .chat-bubble:hover {
+      background: rgba(136, 184, 168, 0.3);
+    }
+
+    .chat-bubble::before {
+      content: '💬';
+      font-size: 1.2rem;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(162, 175, 155, 0.7);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(162, 175, 155, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(162, 175, 155, 0);
+      }
+    }
+
+    .chat-overlay {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: rgba(250, 249, 238, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .chat-overlay.active {
+      display: flex;
+      transform: translateX(0);
+    }
+
+    body.dark-theme .chat-overlay {
+      background: rgba(162, 213, 198, 0.2);
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #77cfb8, #46a3a3);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .chat-header .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    .chat-header .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 1rem;
+      background: rgba(220, 207, 192, 0.1);
+      backdrop-filter: blur(12px);
+      overflow-y: auto;
+    }
+
+    body.dark-theme .chat-body {
+      background: rgba(162, 213, 198, 0.2);
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    body.dark-theme .typing-indicator span {
+      background: #CFFFE2;
+    }
+
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #A2AF9B;
+      border-radius: 50%;
+      animation: typing 1s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 100% {
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .message {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .message.user {
+      align-items: flex-end;
+    }
+
+    .message.ai {
+      align-items: flex-start;
+    }
+
+    .message-content {
+      max-width: 80%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    .message.user .message-content {
+      background: rgba(162, 175, 155, 0.2);
+      backdrop-filter: blur(12px);
+      color: #FAF9EE;
+      border-bottom-right-radius: 2px;
+    }
+
+    body.dark-theme .message.user .message-content {
+      background: rgba(162, 213, 198, 0.2);
+      color: #FFFFFF;
+    }
+
+    .message.ai .message-content {
+      background: rgba(238, 238, 238, 0.2);
+      backdrop-filter: blur(12px);
+      color: #2D4F2B;
+      border-bottom-left-radius: 2px;
+    }
+
+    body.dark-theme .message.ai .message-content {
+      background: rgba(246, 246, 246, 0.2);
+      color: #CFFFE2;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 0.8rem;
+      background: linear-gradient(135deg, rgba(220, 207, 192, 0.1), rgba(250, 249, 238, 0.1));
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    body.dark-theme .chat-input {
+      background: linear-gradient(135deg, rgba(162, 213, 198, 0.2), rgba(162, 213, 198, 0.2));
+      border-top: 1px solid rgba(207, 255, 226, 0.3);
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: none;
+      border-radius: 25px 0 0 25px;
+      font-size: 1rem;
+      outline: none;
+      background: rgba(250, 249, 238, 0.1);
+      backdrop-filter: blur(12px);
+      color: #57564F;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark-theme .chat-input input {
+      background: rgba(162, 213, 198, 0.2);
+      border: 1px solid rgba(207, 255, 226, 0.3);
+    }
+
+    .chat-input input:focus {
+      border-color: #8b859a;
+      box-shadow: 0 0 8px rgba(162, 175, 155, 0.3);
+    }
+
+    body.dark-theme .chat-input input:focus {
+      border-color: #B0E6C9;
+      box-shadow: 0 0 8px rgba(162, 213, 198, 0.3);
+    }
+
+    .chat-input input::placeholder {
+      color: #17313E;
+      transition: opacity 0.3s ease;
+    }
+
+    .chat-input input:focus::placeholder {
+      opacity: 0.5;
+    }
+
+    .chat-input button {
+      padding: 0.9rem 1.2rem;
+      background: linear-gradient(135deg, rgba(162, 175, 155, 0.2), rgba(220, 207, 192, 0.1));
+      backdrop-filter: blur(12px);
+      color: #FAF9EE;
+      border: none;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    body.dark-theme .chat-input button {
+      background: linear-gradient(135deg, rgba(162, 213, 198, 0.2), rgba(162, 213, 198, 0.2));
+      color: #FFFFFF;
+    }
+
+    .chat-input button:hover {
+      background: linear-gradient(135deg, rgba(138, 154, 133, 0.2), rgba(176, 175, 160, 0.2));
+      transform: scale(1.05);
+    }
+
+    body.dark-theme .chat-input button:hover {
+      background: linear-gradient(135deg, rgba(136, 184, 168, 0.3), rgba(136, 184, 168, 0.3));
+    }
+
+    .chat-input button::before {
+      content: '➤';
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(238, 238, 238, 0.1);
+      backdrop-filter: blur(12px);
+      color: #A2AF9B;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.dark-theme footer {
+      background: rgba(246, 246, 246, 0.2);
+      color: #CFFFE2;
+      border-top: 1px solid rgba(207, 255, 226, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .home {
+        width: 100%;
+        position: relative;
+        top: 0;
+        height: auto;
+        padding: 2rem;
+        z-index: 1001;
+      }
+
+      .home.collapsed {
+        width: 100%;
+        padding: 2rem;
+      }
+
+      .home.collapsed .profile-pic,
+      .home.collapsed h3,
+      .home.collapsed p,
+      .home.collapsed .social-links,
+      .home.collapsed .nav-links a::after {
+        display: block;
+      }
+
+      .home.collapsed .hamburger {
+        display: none;
+      }
+
+      .content-wrapper {
+        margin-left: 0;
+      }
+
+      .content-wrapper.collapsed {
+        margin-left: 0;
+      }
+
+      .hero {
+        height: 80vh;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .typed-text {
+        font-size: 1.2rem;
+      }
+
+      .home .profile-pic {
+        width: 80px;
+        height: 80px;
+      }
+
+      .home h3 {
+        font-size: 1.2rem;
+      }
+
+      .home p {
+        font-size: 0.9rem;
+      }
+
+      .projects-row {
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .project {
+        width: 100%;
+        max-width: 400px;
+        margin: 1rem auto;
+      }
+
+      .chat-bubble {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.2rem;
+      }
+
+      .chat-overlay {
+        width: 90%;
+        right: 5%;
+        bottom: 60px;
+        max-height: 400px;
+      }
+
+      .chat-header .profile-pic {
+        width: 35px;
+        height: 35px;
+      }
+
+      .chat-input {
+        padding: 0.6rem;
+      }
+
+      .chat-input input {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .chat-input button {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero .typed-text {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 2rem 1rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .chat-bubble {
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.8rem;
+      }
+
+      .chat-header .profile-pic {
+        width: 30px;
+        height: 30px;
+      }
+
+      .chat-input input {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .chat-input button {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>Aditi Gupta</h1>
+      <span class="typed-text"></span>
+    </div>
+  </section>
+
+  <section id="home" class="home">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <img src="image.png" alt="Profile Picture" class="profile-pic">
+    <h3>Aditi Gupta</h3>
+    <ul class="nav-links">
+      <li><a href="#hero" data-tooltip="Home">Home</a></li>
+      <li><a href="#about" data-tooltip="About">About</a></li>
+      <li><a href="#skills" data-tooltip="Skills">Skills</a></li>
+      <li><a href="#projects" data-tooltip="Projects">Projects</a></li>
+      <li><a href="#contact" data-tooltip="Contact">Contact</a></li>
+    </ul>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/aditi-gupta-9a25b6308/" target="_blank">🔗</a>
+      <a href="https://github.com/heyyaditi" target="_blank">🐙</a>
+      <a href="https://twitter.com" target="_blank">🐦</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </section>
+
+  <div class="content-wrapper">
+    <section id="about" class="about">
+      <h2>About Me</h2>
+      <p>Motivated Computer Science and Engineering graduate with a strong academic record, consistently scoring 90% throughout both school and college. Passionate about coding and web development, with hands-on knowledge of C, Java, HTML, CSS, and Data Structures & Algorithms in C. Currently expanding skill set by learning C++ and JavaScript to strengthen both backend and frontend capabilities. Enthusiastic about building a career in web development, with a keen interest in creating clean, responsive, and user-focused web applications. Outside of tech, I enjoy swimming, dancing, gardening, and exploring religious and historical literature, which helps me stay balanced and curious.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill">HTML & CSS</div>
+        <div class="skill">Java</div>
+        <div class="skill">C</div>
+        <div class="skill">Node.js</div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-row">
+        <div class="project">
+          <img src="https://picsum.photos/300/200?random=1" alt="E-Commerce Platform" loading="lazy">
+          <h3>E-Commerce Platform</h3>
+          <p>A responsive e-commerce website built with React and Node.js, featuring secure payment integration.</p>
+          <a href="#" target="_blank">View Project</a>
+        </div>
+        <div class="project">
+          <img src="https://picsum.photos/300/200?random=2" alt="Task Management App" loading="lazy">
+          <h3>Task Management App</h3>
+          <p>A productivity app with real-time collaboration, built using Vue.js and Firebase.</p>
+          <a href="#" target="_blank">View Project</a>
+        </div>
+        <div class="project">
+          <img src="https://picsum.photos/300/200?random=3" alt="Portfolio Dashboard" loading="lazy">
+          <h3>Portfolio Dashboard</h3>
+          <p>A dynamic dashboard for tracking investments, developed with Angular and Chart.js.</p>
+          <a href="#" target="_blank">View Project</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact Me</h2>
+      <div>
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" rows="5" required></textarea>
+        <button onclick="alert('Form submitted!')">Send Message</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="chat-bubble" onclick="toggleChat()">Ask anything about me</div>
+
+  <div class="chat-overlay" id="chatOverlay">
+    <div class="chat-header">
+      <img src="image.png" alt="Profile Picture" class="profile-pic">
+      <span>Chat with Me</span>
+      <button class="close-btn" onclick="toggleChat()">✖</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="message ai">
+        <div class="message-content">Hi, I am Aditi Gupta, what do you want to know about me?</div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Aditi Gupta. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDFgtVE9l0IjcrUhaI8fo6FGsRR7zHoTm0",
+      authDomain: "aiportfolio-c8141.firebaseapp.com",
+      projectId: "aiportfolio-c8141",
+      storageBucket: "aiportfolio-c8141.appspot.com",
+      messagingSenderId: "1065597878588",
+      appId: "1:1065597878588:web:d78b990354b43cbfff5e39",
+      measurementId: "G-4FT5L989CD"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <script>
+    // Constants for chatbot
+    const myFullName = "Aditi Gupta";
+    const myDescription = "Motivated personally, I enjoy swimming, dancing, gardening, and exploring religious and historical literature, which helps me stay balanced and curious.";
+    const apiKey = "AIzaSyB-05ch-e1a5M6556MD7FH_L3ks9iwS4B0"; // Replace with your actual Gemini API key
+
+    // Initialize Typed.js for hero section
+    new Typed('.typed-text', {
+      strings: ['Web Developer',  'Tech Enthusiast', 'CSS Wizard','Tech nerd with a designer’s soul.'],
+      typeSpeed: 70,
+      backSpeed: 30,
+      backDelay: 1000,
+      loop: true
+    });
+
+    // Smooth scrolling for nav links
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Toggle sidebar
+    function toggleSidebar() {
+      const home = document.querySelector('.home');
+      const contentWrapper = document.querySelector('.content-wrapper');
+      home.classList.toggle('collapsed');
+      contentWrapper.classList.toggle('collapsed');
+    }
+
+    // Toggle chat overlay
+    function toggleChat() {
+      const chatOverlay = document.getElementById('chatOverlay');
+      chatOverlay.classList.toggle('active');
+      if (chatOverlay.classList.contains('active')) {
+        // Reset chat to initial message when opened
+        const chatBody = document.getElementById('chatBody');
+        chatBody.innerHTML = `
+          <div class="message ai">
+            <div class="message-content">Hi, I am ${myFullName}, what do you want to know about me?</div>
+          </div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+    }
+
+    // Send message and fetch AI response
+    async function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const chatBody = document.getElementById('chatBody');
+      const message = input.value.trim();
+
+      if (message) {
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user';
+        userMessage.innerHTML = `<div class="message-content">${message}</div>`;
+        chatBody.appendChild(userMessage);
+
+        // Clear input
+        input.value = '';
+
+        // Show typing indicator
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'message ai typing-indicator';
+        typingIndicator.innerHTML = `
+          <span></span>
+          <span></span>
+          <span></span>`;
+        chatBody.appendChild(typingIndicator);
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        try {
+          // Make API call to Gemini
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [{
+                    text: `User_message: ${message}. Reply naturally to the user message and if required then answer based on: ${myDescription} or just simply give a friendly reply. Reply in a way that Aditi Gupta is herself talking. Reply in short sentences.`
+                  }]
+                }]
+              })
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error('API request failed');
+          }
+
+          const data = await response.json();
+          const aiResponse = data.candidates[0].content.parts[0].text;
+
+          // Remove typing indicator
+          typingIndicator.remove();
+
+          // Add AI response
+          const aiMessage = document.createElement('div');
+          aiMessage.className = 'message ai';
+          aiMessage.innerHTML = `<div class="message-content">${aiResponse}</div>`;
+          chatBody.appendChild(aiMessage);
+        } catch (error) {
+          // Remove typing indicator
+          typingIndicator.remove();
+
+          // Show error message
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'message ai';
+          errorMessage.innerHTML = `<div class="message-content">Sorry, something went wrong. Try again!</div>`;
+          chatBody.appendChild(errorMessage);
+        }
+
+        // Scroll to bottom
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+    }
+
+    // Send message on Enter key
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // Toggle dark theme
+    function toggleTheme() {
+      document.body.classList.toggle('dark-theme');
+      const themeToggle = document.querySelector('.theme-toggle');
+      themeToggle.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+      localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+    }
+
+    // Load saved theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-theme');
+      document.querySelector('.theme-toggle').textContent = '☀️';
+    }
+  </script>
+</body>
+</html>
